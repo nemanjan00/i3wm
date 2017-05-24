@@ -2,19 +2,32 @@
 set $mod Mod4
 
 # Hack font
-font pango:Hack DejaVu Sans Mono 8
+font pango:Hack 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec urxvt
+
+# start a terminal
+bindsym $mod+b exec google-chrome-stable
+
+# start a terminal
+bindsym $mod+n exec urxvt -e "nvim"
+
+# start a terminal
+bindsym $mod+Shift+b exec urxvt -e vifm
 
 # kill focused window
 bindsym $mod+t kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_recent_aliases
+# bindsym $mod+d exec rofi -run-list-command "zsh ./aliases.sh" -run-command "zsh -i -c '{cmd}'" -show run -fullscreen
+
+# start textsuggest
+bindsym $mod+q exec textsuggest --auto-selection --language serbian
 
 # backup after reinstall
 bindsym $mod+Shift+d exec i3-dmenu-desktop
@@ -27,7 +40,7 @@ bindsym $mod+Shift+y exec shutdown now
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+ccaron focus right
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -39,7 +52,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ccaron move right
+bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -68,7 +81,9 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
+
+bindsym $mod+a exec zsh -i -c "arduino"
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -85,6 +100,17 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+bindsym $mod+Control+1 workspace 11
+bindsym $mod+Control+2 workspace 12
+bindsym $mod+Control+3 workspace 13
+bindsym $mod+Control+4 workspace 14
+bindsym $mod+Control+5 workspace 15
+bindsym $mod+Control+6 workspace 16
+bindsym $mod+Control+7 workspace 17
+bindsym $mod+Control+8 workspace 18
+bindsym $mod+Control+9 workspace 19
+bindsym $mod+Control+0 workspace 20
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -97,6 +123,17 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+bindsym $mod+Control+Shift+1 move container to workspace 11
+bindsym $mod+Control+Shift+2 move container to workspace 12
+bindsym $mod+Control+Shift+3 move container to workspace 13
+bindsym $mod+Control+Shift+4 move container to workspace 14
+bindsym $mod+Control+Shift+5 move container to workspace 15
+bindsym $mod+Control+Shift+6 move container to workspace 16
+bindsym $mod+Control+Shift+7 move container to workspace 17
+bindsym $mod+Control+Shift+8 move container to workspace 18
+bindsym $mod+Control+Shift+9 move container to workspace 19
+bindsym $mod+Control+Shift+0 move container to workspace 20
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -104,8 +141,51 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% | ~/volnoti.sh #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% | ~/volnoti.sh #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle | ~/volnoti.sh # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Pulse Audio controls
+bindsym Shift+XF86AudioRaiseVolume exec playerctl next
+bindsym Shift+XF86AudioLowerVolume exec playerctl previous
+bindsym Shift+XF86AudioMute exec exec playerctl play-pause
+bindsym Shift+XF86AudioMicMute exec "bash ~/spray.sh"
+
+bindsym Control+XF86AudioRaiseVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py chanup 0'"
+bindsym Control+XF86AudioLowerVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py chandown 0'"
+bindsym Control+XF86AudioMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py tvon 0'"
+bindsym Control+XF86AudioMicMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py tvoff 0'"
+bindsym Control+F12 exec "zsh -c 'cd ~/broadlink/ ; python2 send.py tvoff 0'"
+
+bindsym Mod1+XF86AudioRaiseVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py lightsmainred 0'"
+bindsym Mod1+XF86AudioLowerVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py lightsmainwhite 0'"
+bindsym Mod1+XF86AudioMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py lightsmainon 0'"
+bindsym Mod1+XF86AudioMicMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py lightsmainoff 0'"
+bindsym Mod1+F12 exec "zsh -c 'cd ~/broadlink/ ; python2 send.py lightsmainoff 0'"
+
+bindsym $mod+XF86AudioRaiseVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py heat 0'"
+bindsym $mod+XF86AudioLowerVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py cool 0'"
+bindsym $mod+XF86AudioMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py ac 0'"
+
 # Chrome app launcher
-bindsym $mod+Shift+a exec google-chrome-stable --show-app-list
+bindsym $mod+Shift+a exec chromium --show-app-list
+
+#bindsym $mod+Shift+v exec zsh -c "killall -9 julius | ~/jasper/start.sh"
+#exec zsh -c "killall -9 julius | ~/jasper/start.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -134,18 +214,32 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-	status_command i3status
+  status_command i3status | ~/.i3status.py
+  colors {
+    separator #666666
+    background #000000
+    statusline #ffffff
+    focused_workspace #551a8b #551a8b #ffffff
+    active_workspace #333333 #5f676a #ffffff
+    inactive_workspace #000000 #000000 #888888
+    urgent_workspace #2f343a #900000 #ffffff
+  }
 }
 
-# Replace Caps Lock with Escape
-exec setxkbmap -option caps:escape
-
 # Compositor
+exec /usr/bin/setxkbmap -option "caps:swapescape"
 exec xcompmgr
+# exec compton -cCGb --backend glx --vsync opengl
+
+exec nitrogen --restore
 
 # Audio
+exec ~/soundcard.sh
 exec pulseaudio --start
-exec jack_control start
+
+exec urxvtd -q -f -o
+
+exec volnoti
 
 exec qjackctl
 
@@ -155,9 +249,10 @@ exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 
 exec pasystray
 exec nm-applet
+exec blueman-applet
+exec ~/Applications/Telegram/Telegram
 
-#exec hexchat
-exec skype
+exec hexchat
 exec thunderbird
 exec viber
 
@@ -165,21 +260,27 @@ exec viber
 
 exec xflux -l 44.761274 -g 19.692704
 
-exec setxkbmap -model pc104 -layout rs,rs -variant latin,basic 
 exec xxkb
 
-for_window [class="Firefox" title="Firefox"] border none
+exec node ~/automato/index.js
+
+exec slack
+
+exec psyncgui
+exec gnome-encfs-manager
+
+exec ~/.i3/monitor.sh
+
+for_window [title="Nightly"] border none
+for_window [title="Spotify"] border none
 for_window [title="Opera"] border none
 for_window [class="vivaldi-stable"] border none
+for_window [title="Chromium"] border none
 for_window [title="Chrome"] border none
+new_window none
 for_window [title="FreeRDP"] floating disable
 
-for_window [class="Plasma-desktop"] border none
-for_window [class="krunner"] border none
-for_window [class="Kmix"] floating enable;
-for_window [class="Plasmoidviewer"] floating enable;
-for_window [class="Klipper"] floating enable; border none
-
-exec python2 ~/Downloads/JetBrains_License_Server_v1_1/linux-mac/jetbrains_license_server/manage.py runserver nemanjan00-laptop:9123
-exec python2 ~/pc-autobackup/pc_autobackup.py
-
+client.focused #3b1261 #3b1261 #ffffff #662b9c
+client.focused_inactive #333333 #5f676a #ffffff #484e50
+client.unfocused #222222 #222222 #888888 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000
