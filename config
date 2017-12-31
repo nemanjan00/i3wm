@@ -2,22 +2,25 @@
 set $mod Mod4
 
 # Hack font
-font pango:Hack 8
+font pango:Knack Nerd Font 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec termite
 
 # start a terminal
-bindsym $mod+b exec google-chrome-stable
+#bindsym $mod+b exec GTK_THEME=Adwaita MOZ_USE_OMTC=1 ~/Applications/firefox/firefox
+bindsym $mod+b exec qutebrowser --enable-webengine-inspector
+
+bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 
 # start a terminal
-bindsym $mod+n exec urxvt -e "nvim"
+bindsym $mod+n exec termite -e "nvim"
 
 # start a terminal
-bindsym $mod+Shift+b exec urxvt -e vifm
+bindsym $mod+Shift+b exec termite -e vifm
 
 # kill focused window
 bindsym $mod+t kill
@@ -27,20 +30,22 @@ bindsym $mod+d exec dmenu_recent_aliases
 # bindsym $mod+d exec rofi -run-list-command "zsh ./aliases.sh" -run-command "zsh -i -c '{cmd}'" -show run -fullscreen
 
 # start textsuggest
-bindsym $mod+q exec textsuggest --auto-selection --language serbian
+bindsym --release $mod+q exec ~/textsuggest.sh
 
 # backup after reinstall
 bindsym $mod+Shift+d exec i3-dmenu-desktop
 
 # Lock and shutdown
 bindsym $mod+x exec ~/lock.sh
+bindsym $mod+z exec xrandr-invert-colors
 bindsym $mod+Shift+y exec shutdown now
+bindsym $mod+Shift+x exec ~/kill.sh
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -61,10 +66,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+Shift+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Shift+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -84,6 +89,9 @@ bindsym $mod+space focus mode_toggle
 # bindsym $mod+a focus parent
 
 bindsym $mod+a exec zsh -i -c "arduino"
+bindsym $mod+Shift+a exec ~/android.sh
+
+bindsym $mod+Shift+s exec gnome-screenshot -w
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -182,10 +190,9 @@ bindsym $mod+XF86AudioLowerVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.p
 bindsym $mod+XF86AudioMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py ac 0'"
 
 # Chrome app launcher
-bindsym $mod+Shift+a exec chromium --show-app-list
 
-#bindsym $mod+Shift+v exec zsh -c "killall -9 julius | ~/jasper/start.sh"
-#exec zsh -c "killall -9 julius | ~/jasper/start.sh"
+bindsym $mod+Shift+[ exec zsh -c "killall -9 julius | ~/jasper/start.sh"
+exec zsh -c "killall -9 julius | ~/jasper/start.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -214,32 +221,36 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-  status_command i3status | ~/.i3status.py
+  #status_command i3status | ~/.i3status.py
+  status_command statusline i3status
   colors {
-    separator #666666
-    background #000000
-    statusline #ffffff
-    focused_workspace #551a8b #551a8b #ffffff
-    active_workspace #333333 #5f676a #ffffff
-    inactive_workspace #000000 #000000 #888888
-    urgent_workspace #2f343a #900000 #ffffff
+	background #002b36
+	statusline #268bd2
+	focused_workspace #d70000 #d70000 #fdf6e3
+	active_workspace #fdf6e3 #6c71c4 #fdf6e3
+	inactive_workspace #586e75 #93a1a1 #002b36
+	urgent_workspace #d33682 #d33682 #fdf6e3
   }
 }
 
 # Compositor
 exec /usr/bin/setxkbmap -option "caps:swapescape"
-exec xcompmgr
-# exec compton -cCGb --backend glx --vsync opengl
+#exec xcompmgr
+exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
 
 exec nitrogen --restore
+
+exec /usr/lib/notify-osd/notify-osd
 
 # Audio
 exec ~/soundcard.sh
 exec pulseaudio --start
 
-exec urxvtd -q -f -o
+#exec urxvtd -q -f -o
 
 exec volnoti
+
+#exec xrandr --output LVDS1 --scale 1.25x1.25  --panning 2000x1125
 
 exec qjackctl
 
@@ -249,38 +260,53 @@ exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 
 exec pasystray
 exec nm-applet
-exec blueman-applet
-exec ~/Applications/Telegram/Telegram
+#exec blueman-applet
+# exec ~/Applications/Telegram/Telegram
 
-exec hexchat
-exec thunderbird
+exec /usr/bin/notify-listener
+exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
+
+#exec hexchat
+#exec alarm-clock
+
+#exec tilda
+
 exec viber
+
+exec skypeforlinux
+
+#exec cutegram
+
+exec keynav
+
+exec rfkill block bluetooth
 
 # Flux
 
 exec xflux -l 44.761274 -g 19.692704
 
-exec xxkb
+#exec xxkb
 
-exec node ~/automato/index.js
+#exec node ~/automato/index.js
 
 exec slack
 
-exec psyncgui
-exec gnome-encfs-manager
+#exec psyncgui
+#exec gnome-encfs-manager
 
 exec ~/.i3/monitor.sh
 
+for_window [title="Android"] border none
 for_window [title="Nightly"] border none
 for_window [title="Spotify"] border none
 for_window [title="Opera"] border none
 for_window [class="vivaldi-stable"] border none
 for_window [title="Chromium"] border none
-for_window [title="Chrome"] border none
+for_window [title="Android"] floating enable
 new_window none
 for_window [title="FreeRDP"] floating disable
 
-client.focused #3b1261 #3b1261 #ffffff #662b9c
-client.focused_inactive #333333 #5f676a #ffffff #484e50
-client.unfocused #222222 #222222 #888888 #292d2e
-client.urgent #2f343a #900000 #ffffff #900000
+client.focused #d70000 #d70000 #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
