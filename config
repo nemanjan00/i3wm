@@ -237,6 +237,7 @@ bar {
 exec /usr/bin/setxkbmap -option "caps:swapescape"
 #exec xcompmgr
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
+exec parcellite
 
 exec nitrogen --restore
 
