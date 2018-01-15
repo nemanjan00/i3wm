@@ -12,7 +12,7 @@ bindsym $mod+Return exec termite
 
 # start a terminal
 #bindsym $mod+b exec GTK_THEME=Adwaita MOZ_USE_OMTC=1 ~/Applications/firefox/firefox
-bindsym $mod+b exec qutebrowser --enable-webengine-inspector
+bindsym $mod+b exec python ~/projects/qutebrowser/qutebrowser.py --enable-webengine-inspector
 
 bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 
@@ -37,9 +37,10 @@ bindsym $mod+Shift+d exec i3-dmenu-desktop
 
 # Lock and shutdown
 bindsym $mod+x exec ~/lock.sh
+bindsym $mod+Shift+x exec alock -auth pam -bg none -cursor
 bindsym $mod+z exec xrandr-invert-colors
 bindsym $mod+Shift+y exec shutdown now
-bindsym $mod+Shift+x exec ~/kill.sh
+bindsym $mod+y exec ~/kill.sh
 
 # change focus
 bindsym $mod+h focus left
@@ -224,12 +225,12 @@ bar {
   #status_command i3status | ~/.i3status.py
   status_command statusline i3status
   colors {
-	background #002b36
+	background #282A36
 	statusline #268bd2
-	focused_workspace #d70000 #d70000 #fdf6e3
+	focused_workspace #4F99D3 #4F99D3 #151718
 	active_workspace #fdf6e3 #6c71c4 #fdf6e3
-	inactive_workspace #586e75 #93a1a1 #002b36
-	urgent_workspace #d33682 #d33682 #fdf6e3
+	inactive_workspace #1f2326 #1f2326 #AAAAAA
+	urgent_workspace #CE4045 #CE4045 #FFFFFF
   }
 }
 
@@ -307,7 +308,14 @@ for_window [title="Android"] floating enable
 new_window none
 for_window [title="FreeRDP"] floating disable
 
-client.focused #d70000 #d70000 #fdf6e3 #6c71c4
-client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
-client.unfocused #073642 #073642 #93a1a1 #586e75
-client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+ # Seti
+ client.focused #4F99D3 #4F99D3 #151718 #9FCA56
+ client.focused_inactive #1f2326 #1f2326 #AAAAAA #A074C4
+ client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
+ client.urgent #CE4045 #CE4045 #FFFFFF #DCCD69
+
+#client.focused #d70000 #d70000 #fdf6e3 #6c71c4
+#client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+#client.unfocused #073642 #073642 #93a1a1 #586e75
+#client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+
