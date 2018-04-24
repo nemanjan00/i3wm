@@ -11,16 +11,14 @@ floating_modifier $mod
 bindsym $mod+Return exec termite
 
 # start a terminal
-#bindsym $mod+b exec GTK_THEME=Adwaita MOZ_USE_OMTC=1 ~/Applications/firefox/firefox
-bindsym $mod+b exec python ~/projects/qutebrowser/qutebrowser.py --enable-webengine-inspector
+bindsym $mod+b exec qutebrowser --enable-webengine-inspector
 
 bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 
 # start a terminal
 bindsym $mod+n exec termite -e "nvim"
-
-# start a terminal
-bindsym $mod+Shift+b exec termite -e vifm
+bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
+bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
 
 # kill focused window
 bindsym $mod+t kill
@@ -30,7 +28,7 @@ bindsym $mod+d exec dmenu_recent_aliases
 # bindsym $mod+d exec rofi -run-list-command "zsh ./aliases.sh" -run-command "zsh -i -c '{cmd}'" -show run -fullscreen
 
 # start textsuggest
-bindsym --release $mod+q exec ~/textsuggest.sh
+bindsym --release $mod+q exec textsuggest
 
 # backup after reinstall
 bindsym $mod+Shift+d exec i3-dmenu-desktop
@@ -38,7 +36,7 @@ bindsym $mod+Shift+d exec i3-dmenu-desktop
 # Lock and shutdown
 bindsym $mod+x exec ~/lock.sh
 bindsym $mod+Shift+x exec alock -auth pam -bg none -cursor
-bindsym $mod+z exec xrandr-invert-colors
+bindsym $mod+z exec xcalib -i -a
 bindsym $mod+Shift+y exec shutdown now
 bindsym $mod+y exec ~/kill.sh
 
@@ -190,53 +188,86 @@ bindsym $mod+XF86AudioRaiseVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.p
 bindsym $mod+XF86AudioLowerVolume exec "zsh -c 'cd ~/broadlink/ ; python2 send.py cool 0'"
 bindsym $mod+XF86AudioMute exec "zsh -c 'cd ~/broadlink/ ; python2 send.py ac 0'"
 
-# Chrome app launcher
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
 
-bindsym $mod+Shift+[ exec zsh -c "killall -9 julius | ~/jasper/start.sh"
-exec zsh -c "killall -9 julius | ~/jasper/start.sh"
+gaps inner 20
+
+mode "$mode_gaps" {
+	bindsym o		 mode "$mode_gaps_outer"
+	bindsym i		 mode "$mode_gaps_inner"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+	bindsym plus	gaps inner current plus 5
+	bindsym minus gaps inner current minus 5
+	bindsym 0		gaps inner current set 0
+
+	bindsym Shift+plus	gaps inner all plus 5
+	bindsym Shift+minus gaps inner all minus 5
+	bindsym Shift+0		gaps inner all set 0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+	bindsym plus	gaps outer current plus 5
+	bindsym minus gaps outer current minus 5
+	bindsym 0		gaps outer current set 0
+
+	bindsym Shift+plus	gaps outer all plus 5
+	bindsym Shift+minus gaps outer all minus 5
+	bindsym Shift+0		gaps outer all set 0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-		# These bindings trigger as soon as you enter the resize mode
+	# These bindings trigger as soon as you enter the resize mode
 
-		# Pressing left will shrink the window’s width.
-		# Pressing right will grow the window’s width.
-		# Pressing up will shrink the window’s height.
-		# Pressing down will grow the window’s height.
-		bindsym j resize shrink width 10 px or 10 ppt
-		bindsym k resize grow height 10 px or 10 ppt
-		bindsym l resize shrink height 10 px or 10 ppt
-		bindsym ccaron resize grow width 10 px or 10 ppt
+	# Pressing left will shrink the window’s width.
+	# Pressing right will grow the window’s width.
+	# Pressing up will shrink the window’s height.
+	# Pressing down will grow the window’s height.
+	bindsym j resize shrink width 10 px or 10 ppt
+	bindsym k resize grow height 10 px or 10 ppt
+	bindsym l resize shrink height 10 px or 10 ppt
+	bindsym ccaron resize grow width 10 px or 10 ppt
 
-		# same bindings, but for the arrow keys
-		bindsym Left resize shrink width 10 px or 10 ppt
-		bindsym Down resize grow height 10 px or 10 ppt
-		bindsym Up resize shrink height 10 px or 10 ppt
-		bindsym Right resize grow width 10 px or 10 ppt
+	# same bindings, but for the arrow keys
+	bindsym Left resize shrink width 10 px or 10 ppt
+	bindsym Down resize grow height 10 px or 10 ppt
+	bindsym Up resize shrink height 10 px or 10 ppt
+	bindsym Right resize grow width 10 px or 10 ppt
 
-		# back to normal: Enter or Escape
-		bindsym Return mode "default"
-		bindsym Escape mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 bar {
-  #status_command i3status | ~/.i3status.py
-  status_command statusline i3status
-  colors {
-	background #282A36
-	statusline #268bd2
-	focused_workspace #4F99D3 #4F99D3 #151718
-	active_workspace #fdf6e3 #6c71c4 #fdf6e3
-	inactive_workspace #1f2326 #1f2326 #AAAAAA
-	urgent_workspace #CE4045 #CE4045 #FFFFFF
-  }
+	#status_command i3status
+	status_command statusline i3status
+	colors {
+		background #282A36
+		statusline #268bd2
+		focused_workspace #4F99D3 #4F99D3 #151718
+		active_workspace #fdf6e3 #6c71c4 #fdf6e3
+		inactive_workspace #1f2326 #1f2326 #AAAAAA
+		urgent_workspace #CE4045 #CE4045 #FFFFFF
+	}
 }
 
-# Compositor
 exec /usr/bin/setxkbmap -option "caps:swapescape"
-#exec xcompmgr
+# Compositor
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
 exec parcellite
 
@@ -248,55 +279,26 @@ exec /usr/lib/notify-osd/notify-osd
 exec ~/soundcard.sh
 exec pulseaudio --start
 
-#exec urxvtd -q -f -o
-
 exec volnoti
 
-#exec xrandr --output LVDS1 --scale 1.25x1.25  --panning 2000x1125
-
-exec qjackctl
+#exec jack_control start
+#exec qjackctl
 
 # Better i3 with Gnome settings
-
 exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 
 exec pasystray
 exec nm-applet
-#exec blueman-applet
-# exec ~/Applications/Telegram/Telegram
-
+exec blueman-applet
 exec /usr/bin/notify-listener
 exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
-
-#exec hexchat
-#exec alarm-clock
-
-#exec tilda
-
 exec viber
-
-exec skypeforlinux
-
-#exec cutegram
-
+exec textsuggest-server
 exec keynav
-
 exec rfkill block bluetooth
-
-# Flux
-
 exec xflux -l 44.761274 -g 19.692704
-
-#exec xxkb
-
-#exec node ~/automato/index.js
-
-exec slack
-
-#exec psyncgui
-#exec gnome-encfs-manager
-
 exec ~/.i3/monitor.sh
+exec ~/mail.sh
 
 for_window [title="Android"] border none
 for_window [title="Nightly"] border none
@@ -308,14 +310,10 @@ for_window [title="Android"] floating enable
 new_window none
 for_window [title="FreeRDP"] floating disable
 
- # Seti
- client.focused #4F99D3 #4F99D3 #151718 #9FCA56
- client.focused_inactive #1f2326 #1f2326 #AAAAAA #A074C4
- client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
- client.urgent #CE4045 #CE4045 #FFFFFF #DCCD69
+# Seti theme
+client.focused #4F99D3 #4F99D3 #151718 #9FCA56
+client.focused_inactive #1f2326 #1f2326 #AAAAAA #A074C4
+client.unfocused #1f2326 #1f2326 #AAAAAA #A074C4
+client.urgent #CE4045 #CE4045 #FFFFFF #DCCD69
 
-#client.focused #d70000 #d70000 #fdf6e3 #6c71c4
-#client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
-#client.unfocused #073642 #073642 #93a1a1 #586e75
-#client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
