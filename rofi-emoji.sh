@@ -4,14 +4,20 @@
 #   century is about apparently...
 #
 #   Requirements:
-#     rofi, xsel, curl, xmllint
+#     rofi, xsel, xdotool, curl, xmllint
 #
 #   Usage:
 #     1. Download all emoji
 #        $ rofi-emoji --download
 #
-#     2. Run rofi
+#     2. Run it!
 #        $ rofi-emoji
+#
+#   Notes:
+#     * You'll need a emoji font like "Noto Emoji" or "EmojiOne".
+#     * Confirming an item will automatically paste it WITHOUT
+#       writing it to your clipboard.
+#     * Ctrl+C will copy it to your clipboard WITHOUT pasting it.
 #
 
 # Where to save the emojis file.
@@ -31,7 +37,16 @@ URLS=(
 )
 
 
+function notify() {
+    if [ "$(command -v notify-send)" ]; then
+        notify-send "$1" "$2"
+    fi
+}
+
+
 function download() {
+    notify `basename "$0"` 'Downloading all emoji for your pleasure'
+
     echo "" > "$EMOJI_FILE"
 
     for url in "${URLS[@]}"; do
@@ -51,20 +66,27 @@ function download() {
 
         echo "$emojis" >> "$EMOJI_FILE"
     done
+
+    notify `basename "$0"` "We're all set!"
 }
 
 
 function display() {
     emoji=$(cat "$EMOJI_FILE" | grep -v '#' | grep -v '^[[:space:]]*$')
-    line=$(echo "$emoji" | rofi -dmenu -i -p 'emoji: ' $@)
+    line=$(echo "$emoji" | rofi -dmenu -i -p emoji -kb-custom-1 Ctrl+c $@)
+    exit_code=$?
 
     line=($line)
 
-	echo -n "${line[0]}" | xsel -i -b
-    xdotool type --clearmodifiers "${line[0]}"
+    if [ $exit_code == 0 ]; then
+        xdotool type --clearmodifiers "${line[0]}"
+    elif [ $exit_code == 10 ]; then
+        echo -n "${line[0]}" | xsel -i -b
+    fi
 }
 
 
+# Some simple argparsing
 if [[ "$1" =~ -D|--download ]]; then
     download
     exit 0
@@ -73,4 +95,10 @@ elif [[ "$1" =~ -h|--help ]]; then
     exit 0
 fi
 
+# Download all emoji if they don't exist yet
+if [ ! -f "$EMOJI_FILE" ]; then
+    download
+fi
+
+# display displays :)
 display
