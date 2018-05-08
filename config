@@ -53,6 +53,11 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+bindsym --release Mod1+h exec xdotool key Left
+bindsym --release Mod1+j exec xdotool key Down
+bindsym --release Mod1+k exec xdotool key Up
+bindsym --release Mod1+l exec xdotool key Right
+
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
@@ -92,6 +97,7 @@ bindsym $mod+a exec zsh -i -c "arduino"
 bindsym $mod+Shift+a exec ~/android.sh
 
 bindsym $mod+Shift+s exec gnome-screenshot -w
+bindsym Print exec gnome-screenshot
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -255,23 +261,24 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-	i3bar_command i3bar
+	i3bar_command i3bar -t
+	#i3bar_command polybar top
 	#status_command i3status
 	status_command statusline i3status
 	colors {
-		background #160925
+		background #16092500
 		statusline #337198
 		focused_workspace #16A49D #16A49D #FFFFFF
 		active_workspace #fdf6e3 #6c71c4 #FFFFFF
-		inactive_workspace #160925 #160925 #FFFFFF
+		inactive_workspace #16092500 #16092500 #FFFFFF
 		urgent_workspace #9D43A0 #9D43A0 #FFFFFF
 	}
 }
 
-exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+#exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+exec /usr/bin/setxkbmap -option "caps:swapescape"
 exec xmodmap ~/.xmodmap
 exec nitrogen --restore
-exec /usr/bin/setxkbmap -option "caps:swapescape"
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
 exec parcellite
 exec /usr/lib/notify-osd/notify-osd
@@ -282,12 +289,17 @@ exec volnoti
 exec pasystray
 exec nm-applet
 exec blueman-applet
+
+for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] move container to workspace 8
 exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
-exec viber
+
+for_window [class="Viber"] move container to workspace 7
+exec "sleep 20; viber"
+
 exec textsuggest-server
 exec keynav
 exec xflux -l 44.761274 -g 19.692704
-exec ~/.i3/monitor.sh
+#exec ~/.i3/monitor.sh
 exec ~/mail.sh
 
 new_window none
