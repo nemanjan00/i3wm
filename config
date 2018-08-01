@@ -16,6 +16,8 @@ bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 
 # Cli apps
 bindsym $mod+n exec termite -e "nvim"
+bindsym $mod+shift+p exec termite -e "ncpamixer"
+bindsym $mod+shift+m exec networkmanager_dmenu
 bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
 bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
 
