@@ -277,7 +277,7 @@ exec /usr/bin/setxkbmap -option "caps:swapescape"
 exec nitrogen --restore
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
 exec parcellite -n
-exec /usr/lib/notify-osd/notify-osd
+exec /usr/lib/notify-osd-customizable/notify-osd
 exec pulseaudio --start
 exec volnoti
 
@@ -285,12 +285,18 @@ for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] 
 exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
 
 exec keynav
-#exec ~/.i3/monitor.sh
+
+exec ~/.i3/monitor.sh
+
 #exec ~/mail.sh
+
+# Do not use any border on windows
 
 new_window none
 
-# Seti theme
+# Window border theming
+# <border> <background> <text> <indicator> <child_border>
+
 client.focused #16A49D #16A49D #FFFFFF #9FCA56
 client.focused_inactive #1f2326 #FFFFFF #AAAAAA #A074C4
 client.unfocused #160925 #160925 #FFFFFF #A074C4
