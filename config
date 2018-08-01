@@ -2,21 +2,19 @@
 set $mod Mod4
 
 # Hack font
-font pango:Knack Nerd Font 8
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+font pango:Hack Nerd Font 8
 
 # start a terminal
 bindsym $mod+semicolon exec termite
 bindsym $mod+Return exec termite
 
-# start a terminal
+# Web browser
 bindsym $mod+b exec qutebrowser --enable-webengine-inspector --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4
-
+#
+# Startup
 bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 
-# start a terminal
+# Cli apps
 bindsym $mod+n exec termite -e "nvim"
 bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
 bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
@@ -261,10 +259,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-	i3bar_command i3bar -t
-	#i3bar_command polybar top
-	#status_command i3status
-	status_command statusline i3status
+	i3bar_command i3bar
+	status_command /home/nemanjan00/.yarn/bin/statusline i3status
 	colors {
 		background #16092500
 		statusline #337198
@@ -275,32 +271,20 @@ bar {
 	}
 }
 
-#exec /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 exec /usr/bin/setxkbmap -option "caps:swapescape"
-exec xmodmap ~/.xmodmap
 exec nitrogen --restore
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
-exec parcellite
+exec parcellite -n
 exec /usr/lib/notify-osd/notify-osd
 exec pulseaudio --start
 exec volnoti
-#exec jack_control start
-#exec qjackctl
-exec pasystray
-exec nm-applet
-exec blueman-applet
 
-for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] move container to workspace 8
+for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] move container to workspace 9
 exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
 
-for_window [class="Viber"] move container to workspace 7
-exec "sleep 20; viber"
-
-exec textsuggest-server
 exec keynav
-exec xflux -l 44.761274 -g 19.692704
 #exec ~/.i3/monitor.sh
-exec ~/mail.sh
+#exec ~/mail.sh
 
 new_window none
 
