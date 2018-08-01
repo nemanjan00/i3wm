@@ -36,7 +36,7 @@ bindsym $mod+Shift+d exec i3-dmenu-desktop
 
 # Lock and shutdown
 bindsym $mod+x exec ~/lock.sh
-bindsym $mod+Shift+x exec --release zsh -c "alock -auth pam -bg none > ~/log.txt"
+bindsym --release $mod+Shift+x exec alock -auth pam -bg none
 bindsym $mod+z exec xcalib -i -a
 bindsym $mod+Shift+y exec shutdown now
 bindsym $mod+y exec ~/kill.sh
