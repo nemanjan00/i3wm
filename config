@@ -156,9 +156,9 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% | ~/volnoti.sh #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% | ~/volnoti.sh #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle | ~/volnoti.sh # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.i3/volume-control up #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.i3/volume-control down #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id ~/.i3/volume-control mute # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -264,7 +264,7 @@ bar {
 	i3bar_command i3bar
 	status_command /home/nemanjan00/.yarn/bin/statusline i3status
 	colors {
-		background #16092500
+		background #160925
 		statusline #337198
 		focused_workspace #16A49D #16A49D #FFFFFF
 		active_workspace #fdf6e3 #6c71c4 #FFFFFF
@@ -278,7 +278,6 @@ exec nitrogen --restore
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
 exec parcellite -n
 exec /usr/lib/notify-osd-customizable/notify-osd
-exec pulseaudio --start
 exec volnoti
 
 for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] move container to workspace 9
@@ -287,6 +286,8 @@ exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
 exec keynav
 
 exec ~/.i3/monitor.sh
+
+exec redshift-gtk
 
 #exec ~/mail.sh
 

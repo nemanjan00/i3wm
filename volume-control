@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+percent_change=5
+sink=0
+
+case "$1" in
+up)
+	pactl set-sink-volume ${sink} +${percent_change}%
+	pactl set-sink-mute ${sink} no
+	;;
+down)
+	pactl set-sink-volume ${sink} -${percent_change}%
+	pactl set-sink-mute ${sink}  no
+	;;
+mute)
+	pactl set-sink-mute ${sink} toggle
+	;;
+esac
+
+volume=$(pactl list sinks | perl -000ne 'if(/#'${sink}'/){/(Volume:.*)/; print "$1\n"}')
+volume_percent=$(sed 's/.*[[:space:]]\([[:digit:]]*%\)[[:space:]].*/\1/' <<< "$volume")
+muted=$(pactl list sinks | perl -000ne 'if(/#'${sink}'/){/(Mute:.*)/; print "$1\n"}')
+
+if [[ $muted == 'Mute: yes' ]]; then
+	volnoti-show -m $volume_percent
+else
+	volnoti-show $volume_percent
+fi
