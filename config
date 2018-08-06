@@ -7,9 +7,10 @@ font pango:Hack Nerd Font 8
 # start a terminal
 bindsym $mod+semicolon exec termite
 bindsym $mod+Return exec termite
+bindsym $mod+Shift+Return exec termite -e "nvim +term"
 
 # Web browser
-bindsym $mod+b exec qutebrowser --enable-webengine-inspector --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4
+bindsym $mod+b exec qutebrowser 
 
 # Startup
 bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
