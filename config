@@ -24,6 +24,7 @@ bindsym $mod+Shift+c exec termite -e "rtv"
 # Menu apps
 bindsym $mod+shift+m exec networkmanager_dmenu
 bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
+bindsym $mod+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 
 # kill focused window
 bindsym $mod+t kill
