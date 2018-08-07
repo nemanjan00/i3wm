@@ -20,6 +20,7 @@ bindsym $mod+n exec termite -e "nvim"
 bindsym $mod+shift+p exec termite -e "ncpamixer"
 bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
 bindsym $mod+Shift+c exec termite -e "rtv"
+bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
 
 # Menu apps
 bindsym $mod+shift+m exec networkmanager_dmenu
