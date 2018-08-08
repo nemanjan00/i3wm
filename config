@@ -19,6 +19,7 @@ bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 bindsym $mod+n exec termite -e "nvim"
 bindsym $mod+shift+p exec termite -e "ncpamixer"
 bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
+bindsym $mod+c exec termite -e "nvim +Calendar"
 bindsym $mod+Shift+c exec termite -e "rtv"
 bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
 
@@ -224,7 +225,7 @@ exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
 
 exec keynav
 
-exec ~/.i3/monitor.sh
+#exec ~/.i3/monitor.sh
 
 exec redshift-gtk
 
