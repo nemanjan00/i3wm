@@ -22,6 +22,7 @@ bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
 bindsym $mod+c exec termite -e "nvim +Calendar"
 bindsym $mod+Shift+c exec termite -e "rtv"
 bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
+bindsym $mod+g exec "bash ~/.i3/passmenu.sh" 
 
 # Menu apps
 bindsym $mod+shift+m exec networkmanager_dmenu
@@ -125,10 +126,10 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioPause exec mpc pause
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
 
 # Pulse Audio controls
 bindsym Shift+XF86AudioRaiseVolume exec playerctl next
