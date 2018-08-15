@@ -8,6 +8,13 @@ if [[ $1 == "--type" ]]; then
 	shift
 fi
 
+otp=0
+
+if [[ $1 == "--otp" ]]; then
+	otp=1
+	shift
+fi
+
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
@@ -18,8 +25,17 @@ password=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu "$@")
 [[ -n $password ]] || exit
 
 if [[ $typeit -eq 0 ]]; then
-	pass show -c "$password" 2>/dev/null
+	if [[ $otp -eq 0 ]]; then
+		pass show -c "$password" 2>/dev/null
+	else
+		pass otp -c "$password" 2>/dev/null
+	fi
 else
-	pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } |
-		xdotool type --clearmodifiers --file -
+	if [[ $otp -eq 0 ]]; then
+		pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } |
+			xdotool type --clearmodifiers --file -
+	else
+		pass otp "$password" | { IFS= read -r pass; printf %s "$pass"; } |
+			xdotool type --clearmodifiers --file -
+	fi
 fi
