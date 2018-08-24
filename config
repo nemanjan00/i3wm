@@ -19,9 +19,11 @@ bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 bindsym $mod+n exec termite -e "nvim"
 bindsym $mod+g exec termite -e "ncpamixer"
 bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
-bindsym $mod+c exec termite -e "nvim +Calendar"
+bindsym $mod+c exec termite -e "calcurse"
 bindsym $mod+Shift+c exec termite -e "rtv"
 bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
+
+bindsym $mod+Shift+s exec ~/.i3/sync.sh
 
 bindsym $mod+p exec "bash ~/.i3/passmenu.sh" 
 bindsym $mod+Shift+p exec "bash ~/.i3/passmenu.sh --otp" 
@@ -232,7 +234,8 @@ exec keynav
 
 exec redshift-gtk
 
-#exec ~/mail.sh
+exec ~/.i3/mail.sh
+exec ~/.i3/mail.local.sh
 
 # Do not use any border on windows
 
