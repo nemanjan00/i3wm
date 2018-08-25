@@ -43,7 +43,7 @@ bindsym $mod+d exec dmenu_recent_aliases
 bindsym $mod+Shift+d exec i3-dmenu-desktop
 
 # Lock and shutdown
-bindsym $mod+x exec ~/lock.sh
+bindsym $mod+x exec ~/i3/lock.sh
 bindsym --release $mod+Shift+x exec alock -auth pam -bg none
 bindsym $mod+Shift+y exec shutdown now
 
