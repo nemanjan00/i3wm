@@ -15,6 +15,9 @@ bindsym $mod+b exec qutebrowser
 # Startup
 bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
 
+# Wallpaper
+bindsym $mod+shift+w exec ~/.i3/wallpaper.sh
+
 # Cli apps
 bindsym $mod+n exec termite -e "nvim"
 bindsym $mod+g exec termite -e "ncpamixer"
