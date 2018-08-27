@@ -219,7 +219,9 @@ bar {
 }
 
 #exec /usr/bin/setxkbmap -option "caps:swapescape"
-exec nitrogen --restore
+#exec nitrogen --restore
+exec bash ~/.i3/wallpaper.sh --startup
+exec bash ~/.i3/loop.sh
 exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
 exec parcellite -n
 exec /usr/lib/notify-osd-customizable/notify-osd
