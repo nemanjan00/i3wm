@@ -12,7 +12,7 @@ echo $number > $WALLPAPERS/.last
 
 DELAY=0.01
 QUALITY=0.3
-RESIZE=50%
+RESIZE=30%
 
 echo $#
 
