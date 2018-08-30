@@ -211,6 +211,11 @@ bindsym $mod+r mode "resize"
 bar {
 	i3bar_command i3bar
 	status_command /home/nemanjan00/.yarn/bin/statusline i3status
+
+	mode hide
+	hidden_state hide
+	modifier Mod1
+
 	colors {
 		background #160925
 		statusline #337198
