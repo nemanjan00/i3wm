@@ -1,30 +1,32 @@
 # Windows key
 set $mod Mod4
+set $terminal alacritty -e
 
 # Hack font
 font pango:Hack Nerd Font 8
 
 # start a terminal
-bindsym $mod+semicolon exec termite
-bindsym $mod+Return exec termite
-bindsym $mod+Shift+Return exec termite -e "nvim +term"
+bindsym $mod+semicolon exec $terminal zsh
+bindsym $mod+Return exec $terminal zsh
+bindsym $mod+Shift+Return exec $terminal "nvim +term"
 
 # Web browser
 bindsym $mod+b exec qutebrowser 
 
 # Startup
-bindsym $mod+m exec termite -e 'tmux attach-session -t "startup"'
+bindsym $mod+m exec $terminal tmux attach-session -t "startup"
 
 # Wallpaper
 bindsym $mod+shift+w exec ~/.i3/wallpaper.sh
 
 # Cli apps
-bindsym $mod+n exec termite -e "nvim"
-bindsym $mod+g exec termite -e "ncpamixer"
-bindsym $mod+Shift+b exec termite -e "zsh -c 'EDITOR=nvim ranger'"
-bindsym $mod+c exec termite -e "calcurse"
-bindsym $mod+Shift+c exec termite -e "rtv"
-bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
+bindsym $mod+n exec $terminal "nvim"
+bindsym $mod+g exec $terminal "ncpamixer"
+bindsym $mod+Shift+b exec $terminal "ranger"
+bindsym $mod+c exec $terminal "calcurse"
+bindsym $mod+Shift+c exec $terminal "rtv"
+
+#bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
 
 bindsym $mod+Shift+s exec ~/.i3/sync.sh
 
@@ -34,7 +36,8 @@ bindsym $mod+Shift+p exec "bash ~/.i3/passmenu.sh --otp"
 # Menu apps
 bindsym $mod+shift+m exec networkmanager_dmenu
 bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
-bindsym $mod+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
+bindsym $mod+Shift+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
+bindsym $mod+o exec --no-startup-id ~/.i3/browser.sh
 
 # kill focused window
 bindsym $mod+t kill
@@ -50,7 +53,10 @@ bindsym $mod+x exec ~/.i3/lock.sh
 bindsym --release $mod+Shift+x exec alock -auth pam -bg none
 bindsym $mod+Shift+y exec shutdown now
 
-bindsym $mod+z exec xcalib -i -a
+bindsym $mod+z exec redshift -O 5000
+bindsym --release $mod+less exec redshift -x
+
+bindsym --release $mod+Shift+z exec xcalib -i -a
 
 # change focus
 bindsym $mod+h focus left
@@ -210,15 +216,16 @@ bindsym $mod+r mode "resize"
 
 bar {
 	i3bar_command i3bar
-	status_command /home/nemanjan00/.yarn/bin/statusline i3status
+	status_command i3status -c ~/.i3/.i3status.conf
+	#status_command /home/nemanjan00/.yarn/bin/statusline i3status
 
-	mode hide
-	hidden_state hide
-	modifier Mod1
+	# mode hide
+	# hidden_state hide
+	# modifier $mod
 
 	colors {
 		background #160925
-		statusline #337198
+		statusline #FFFFFF
 		focused_workspace #16A49D #16A49D #FFFFFF
 		active_workspace #fdf6e3 #6c71c4 #FFFFFF
 		inactive_workspace #16092500 #16092500 #FFFFFF
@@ -236,13 +243,13 @@ exec /usr/lib/notify-osd-customizable/notify-osd
 exec volnoti
 
 for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] move container to workspace 9
-exec termite -e 'tmux new-session "tmux source-file .tmux_startup;zsh -i"'
+exec $terminal tmux new-session "tmux source-file .tmux_startup;zsh -i"
 
 exec keynav
 
 #exec ~/.i3/monitor.sh
 
-exec redshift-gtk
+#exec redshift-gtk
 
 exec ~/.i3/mail.sh
 exec ~/.i3/mail.local.sh

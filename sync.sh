@@ -1,4 +1,4 @@
-offlineimap
-bugwarrior-pull
-task sync
-calcurse-caldav
+torify offlineimap
+torify bugwarrior-pull
+torify task sync
+torify calcurse-caldav
