@@ -22,7 +22,7 @@ bindsym $mod+shift+w exec ~/.i3/wallpaper.sh
 # Cli apps
 bindsym $mod+n exec $terminal "nvim"
 bindsym $mod+g exec $terminal "ncpamixer"
-bindsym $mod+Shift+b exec $terminal "ranger"
+bindsym $mod+Shift+b exec zsh -c 'EDITOR=nvim $terminal "/usr/bin/ranger"'
 bindsym $mod+c exec $terminal "calcurse"
 bindsym $mod+Shift+c exec $terminal "rtv"
 
@@ -247,12 +247,15 @@ exec $terminal tmux new-session "tmux source-file .tmux_startup;zsh -i"
 
 exec keynav
 
-#exec ~/.i3/monitor.sh
+exec ~/.i3/monitor.sh
 
 #exec redshift-gtk
 
 exec ~/.i3/mail.sh
 exec ~/.i3/mail.local.sh
+
+exec udiskie -t -A -N
+exec usbguard-applet-qt
 
 # Do not use any border on windows
 
