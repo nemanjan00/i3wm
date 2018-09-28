@@ -224,11 +224,11 @@ bar {
 	# modifier $mod
 
 	colors {
-		background #1e282d
+		background #282a36
 		statusline #FFFFFF
-		focused_workspace #c3e88d #c3e88d #000000
+		focused_workspace #50fa7b #50fa7b #000000
 		active_workspace #fdf6e3 #6c71c4 #000000
-		inactive_workspace #1e282d #1e282d #FFFFFF
+		inactive_workspace #282a36 #282a36 #FFFFFF
 		urgent_workspace #9D43A0 #9D43A0 #FFFFFF
 	}
 }
@@ -264,8 +264,8 @@ new_window none
 # Window border theming
 # <border> <background> <text> <indicator> <child_border>
 
-client.focused #c3e88d #c3e88d #000000 #c3e88d
+client.focused #50fa7b #50fa7b #000000 #50fa7b
 client.focused_inactive #1f2326 #FFFFFF #AAAAAA #A074C4
-client.unfocused #1e282d #1e282d #FFFFFF #1e282d
+client.unfocused #282a36 #282a36 #FFFFFF #282a36
 client.urgent #9D43A0 #9D43A0 #FFFFFF #DCCD69
 
