@@ -8,7 +8,7 @@ font pango:Hack Nerd Font 8
 # start a terminal
 bindsym $mod+semicolon exec $terminal zsh
 bindsym $mod+Return exec $terminal zsh
-bindsym $mod+Shift+Return exec $terminal "nvim +term"
+bindsym $mod+Shift+Return exec bash -c "ATHAME_ENABLED=0 alacritty"
 
 # Web browser
 bindsym $mod+b exec qutebrowser 
