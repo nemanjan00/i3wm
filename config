@@ -1,6 +1,9 @@
 # Windows key
 set $mod Mod4
+
+# Configuration
 set $terminal alacritty -e
+#set $terminal alacritty -e
 
 # Hack font
 font pango:Hack Nerd Font 8
@@ -10,43 +13,47 @@ bindsym $mod+semicolon exec $terminal zsh
 bindsym $mod+Return exec $terminal zsh
 bindsym $mod+Shift+Return exec bash -c "ATHAME_ENABLED=0 alacritty"
 
-# Web browser
-bindsym $mod+b exec qutebrowser 
-
-# Startup
-bindsym $mod+m exec $terminal tmux attach-session -t "startup"
-
-# Wallpaper
+# Wallpaper changer
 bindsym $mod+shift+w exec ~/.i3/wallpaper.sh
 
-# Cli apps
+# Startup popup
+#bindsym $mod+m exec $terminal tmux attach-session -t "startup"
+bindsym $mod+m exec $terminal neomutt
+bindsym $mod+Shift+i exec $terminal newsboat
+
+# Trigger sync
+bindsym $mod+Shift+s exec ~/.i3/sync.sh
+
+# Apps
+bindsym $mod+b exec qutebrowser 
 bindsym $mod+n exec $terminal "nvim"
 bindsym $mod+g exec $terminal "ncpamixer"
 bindsym $mod+Shift+b exec zsh -c 'EDITOR=nvim $terminal "/usr/bin/ranger"'
-bindsym $mod+c exec $terminal "calcurse"
+bindsym $mod+c exec $terminal "ikhal"
 bindsym $mod+Shift+c exec $terminal "rtv"
 
-#bindsym $mod+Shift+o exec "bash ~/.i3/notes.sh" 
+# Menu apps
+#bindsym $mod+shift+m exec networkmanager_dmenu
+bindsym $mod+shift+m exec $terminal wicd-curses
+bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
+bindsym $mod+Shift+t exec rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+Shift+u exec bash ~/.i3/rofi-books.sh
+bindsym $mod+Shift+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
+bindsym $mod+o exec --no-startup-id ~/.i3/browser.sh
 
-bindsym $mod+Shift+s exec ~/.i3/sync.sh
+
+bindsym $mod+s exec $terminal "torify profanity"
 
 bindsym $mod+p exec "bash ~/.i3/passmenu.sh" 
 bindsym $mod+Shift+p exec "bash ~/.i3/passmenu.sh --otp" 
 
-# Menu apps
-bindsym $mod+shift+m exec networkmanager_dmenu
-bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
-bindsym $mod+Shift+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
-bindsym $mod+o exec --no-startup-id ~/.i3/browser.sh
-
-# kill focused window
-bindsym $mod+t kill
-
-# start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_recent_aliases
 
 # backup after reinstall
 bindsym $mod+Shift+d exec i3-dmenu-desktop
+
+# kill focused window
+bindsym $mod+t kill
 
 # Lock and shutdown
 bindsym $mod+x exec ~/.i3/lock.sh
@@ -80,7 +87,7 @@ bindsym $mod+Shift+v split v
 bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -235,27 +242,40 @@ bar {
 
 #exec /usr/bin/setxkbmap -option "caps:swapescape"
 #exec nitrogen --restore
-exec bash ~/.i3/wallpaper.sh --startup
-exec bash ~/.i3/loop.sh
-exec compton -cCGb --no-fading-openclose --backend glx --vsync opengl
-exec parcellite -n
-exec /usr/lib/notify-osd-customizable/notify-osd
-exec volnoti
+exec --no-startup-id bash ~/.i3/wallpaper.sh --startup
+exec --no-startup-id compton -cCGb --no-fading-openclose
+#exec --no-startup-id xcompmgr
+exec --no-startup-id parcellite -n
+exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
+exec --no-startup-id volnoti
 
-for_window [title="tmux new-session \"tmux source-file .tmux_startup;zsh -i\""] move container to workspace 9
-exec $terminal tmux new-session "tmux source-file .tmux_startup;zsh -i"
+#exec --no-startup-id "sleep 5 ; bash ~/.i3/loop.sh"
 
-exec keynav
+#exec $terminal tmux new-session "tmux source-file .tmux_startup;zsh -i"
 
-exec ~/.i3/monitor.sh
+for_window [title="Keybase"] move container to workspace 9
+for_window [title="WeeChat 2.3"] move container to workspace 9
 
-#exec redshift-gtk
+exec --no-startup-id "sleep 10 ; $terminal weechat"
 
-exec ~/.i3/mail.sh
-exec ~/.i3/mail.local.sh
+#exec "sleep 10 ; keybase-gui"
 
-exec udiskie -t -A -N
-exec usbguard-applet-qt
+for_window [title="ncmpcpp"] move container to workspace 10
+exec --no-startup-id $terminal ncmpcpp
+
+#exec keynav
+#exec ~/.i3/monitor.sh
+
+exec --no-startup-id ~/.i3/mail.sh
+exec --no-startup-id ~/.i3/mail.local.sh
+
+exec --no-startup-id udiskie -t -A -N
+exec --no-startup-id usbguard-applet-qt
+
+exec --no-startup-id qtox
+exec --no-startup-id wicd-gtk -t
+
+exec --no-startup-id pidgin
 
 # Do not use any border on windows
 
