@@ -161,7 +161,7 @@ set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
-gaps inner 20
+# gaps inner 20
 
 mode "$mode_gaps" {
 	bindsym o		 mode "$mode_gaps_outer"
@@ -222,22 +222,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-	i3bar_command i3bar
-	status_command i3status -c ~/.i3/.i3status.conf
-	#status_command /home/nemanjan00/.yarn/bin/statusline i3status
-
-	# mode hide
-	# hidden_state hide
-	# modifier $mod
-
-	colors {
-		background #282a36
-		statusline #FFFFFF
-		focused_workspace #50fa7b #50fa7b #000000
-		active_workspace #fdf6e3 #6c71c4 #000000
-		inactive_workspace #282a36 #282a36 #FFFFFF
-		urgent_workspace #9D43A0 #9D43A0 #FFFFFF
-	}
+	i3bar_command $HOME/.config/polybar/launch.sh
 }
 
 #exec /usr/bin/setxkbmap -option "caps:swapescape"
@@ -248,6 +233,7 @@ exec --no-startup-id compton -cCGb --no-fading-openclose
 exec --no-startup-id parcellite -n
 exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
 exec --no-startup-id volnoti
+exec --no-startup-id qopenvpn
 
 #exec --no-startup-id "sleep 5 ; bash ~/.i3/loop.sh"
 
@@ -271,11 +257,13 @@ exec --no-startup-id ~/.i3/mail.local.sh
 
 exec --no-startup-id udiskie -t -A -N
 exec --no-startup-id usbguard-applet-qt
+exec --no-startup-id blueman-applet
 
-exec --no-startup-id qtox
+# exec --no-startup-id qtox
 exec --no-startup-id wicd-gtk -t
 
-exec --no-startup-id pidgin
+# exec --no-startup-id pidgin
+# exec --no-startup-id gajim
 
 # Do not use any border on windows
 
@@ -289,3 +277,4 @@ client.focused_inactive #1f2326 #FFFFFF #AAAAAA #A074C4
 client.unfocused #282a36 #282a36 #FFFFFF #282a36
 client.urgent #9D43A0 #9D43A0 #FFFFFF #DCCD69
 
+# vim:filetype=i3
