@@ -2,6 +2,7 @@
 # Animated wallpaper changer
 
 
+DISPLAY=:0
 WALLPAPERS="$HOME/Pictures/Wallpapers/"
 ALIST=( `ls -w1 $WALLPAPERS` )
 RANGE=${#ALIST[@]}

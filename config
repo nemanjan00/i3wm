@@ -2,27 +2,19 @@
 set $mod Mod4
 
 # Configuration
-set $terminal alacritty -e
-#set $terminal alacritty -e
+set $terminal termite -e
 
 # Hack font
-font pango:Hack Nerd Font 8
+font pango:Hack Nerd Font 11
 
 # start a terminal
 bindsym $mod+semicolon exec $terminal zsh
 bindsym $mod+Return exec $terminal zsh
-bindsym $mod+Shift+Return exec bash -c "ATHAME_ENABLED=0 alacritty"
-
-# Wallpaper changer
-bindsym $mod+shift+w exec ~/.i3/wallpaper.sh
+bindsym $mod+Shift+Return exec bash -c "ATHAME_ENABLED=0 $terminal zsh"
 
 # Startup popup
-#bindsym $mod+m exec $terminal tmux attach-session -t "startup"
 bindsym $mod+m exec $terminal neomutt
 bindsym $mod+Shift+i exec $terminal newsboat
-
-# Trigger sync
-bindsym $mod+Shift+s exec ~/.i3/sync.sh
 
 # Apps
 bindsym $mod+b exec qutebrowser 
@@ -33,21 +25,16 @@ bindsym $mod+c exec $terminal "ikhal"
 bindsym $mod+Shift+c exec $terminal "rtv"
 
 # Menu apps
-#bindsym $mod+shift+m exec networkmanager_dmenu
-bindsym $mod+shift+m exec $terminal wicd-curses
+bindsym $mod+shift+m exec networkmanager_dmenu
 bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
 bindsym $mod+Shift+t exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+Shift+u exec bash ~/.i3/rofi-books.sh
 bindsym $mod+Shift+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 bindsym $mod+o exec --no-startup-id ~/.i3/browser.sh
-
-
 bindsym $mod+s exec $terminal "torify profanity"
-
 bindsym $mod+p exec "bash ~/.i3/passmenu.sh" 
 bindsym $mod+Shift+p exec "bash ~/.i3/passmenu.sh --otp" 
-
-bindsym $mod+d exec dmenu_recent_aliases
+bindsym $mod+d exec "bash ~/.i3/dmenu_recent_aliases"
 
 # backup after reinstall
 bindsym $mod+Shift+d exec i3-dmenu-desktop
@@ -60,9 +47,9 @@ bindsym $mod+x exec ~/.i3/lock.sh
 bindsym --release $mod+Shift+x exec alock -auth pam -bg none
 bindsym $mod+Shift+y exec shutdown now
 
+# flux
 bindsym $mod+z exec redshift -O 5000
 bindsym --release $mod+less exec redshift -x
-
 bindsym --release $mod+Shift+z exec xcalib -i -a
 
 # change focus
@@ -100,7 +87,7 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 # bindsym $mod+a focus parent
 
-bindsym Print exec scrot
+bindsym Print exec scrot -s
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -142,8 +129,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id ~/.i3/volume-control down #dec
 bindsym XF86AudioMute exec --no-startup-id ~/.i3/volume-control mute # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 5 ; volnoti-show -s /usr/share/pixmaps/volnoti/display-brightness-symbolic.svg $(xbacklight)"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 5 ; volnoti-show -s /usr/share/pixmaps/volnoti/display-brightness-symbolic.svg $(xbacklight)"
 
 # Media player controls
 bindsym XF86AudioPlay exec mpc toggle
@@ -161,7 +148,7 @@ set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
-# gaps inner 20
+gaps inner 20
 
 mode "$mode_gaps" {
 	bindsym o		 mode "$mode_gaps_outer"
@@ -182,6 +169,7 @@ mode "$mode_gaps_inner" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
+
 mode "$mode_gaps_outer" {
 	bindsym plus	gaps outer current plus 5
 	bindsym minus gaps outer current minus 5
@@ -222,51 +210,61 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-	i3bar_command $HOME/.config/polybar/launch.sh
+	i3bar_command i3bar
+	status_command i3status -c ~/.i3/.i3status.conf
+	#status_command /home/nemanjan00/.yarn/bin/statusline i3status
+
+	# mode hide
+	# hidden_state hide
+	# modifier $mod
+
+	colors {
+		background #282a36
+		statusline #FFFFFF
+		focused_workspace #50fa7b #50fa7b #000000
+		active_workspace #fdf6e3 #6c71c4 #000000
+		inactive_workspace #282a36 #282a36 #FFFFFF
+		urgent_workspace #9D43A0 #9D43A0 #FFFFFF
+	}
 }
 
+#bar {
+	#i3bar_command $HOME/.config/polybar/launch.sh
+#}
+
 #exec /usr/bin/setxkbmap -option "caps:swapescape"
-#exec nitrogen --restore
-exec --no-startup-id bash ~/.i3/wallpaper.sh --startup
-exec --no-startup-id compton -cCGb --no-fading-openclose
 #exec --no-startup-id xcompmgr
+#exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
+exec --no-startup-id /usr/bin/synclient TouchpadOff=1
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id compton -b --no-fading-openclose
 exec --no-startup-id parcellite -n
-exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id volnoti
-exec --no-startup-id qopenvpn
-
-#exec --no-startup-id "sleep 5 ; bash ~/.i3/loop.sh"
-
-#exec $terminal tmux new-session "tmux source-file .tmux_startup;zsh -i"
+exec --no-startup-id pasystray
+exec --no-startup-id keynav
+#exec --no-startup-id solaar
 
 for_window [title="Keybase"] move container to workspace 9
-for_window [title="WeeChat 2.3"] move container to workspace 9
+for_window [title="WeeChat 2.5"] move container to workspace 9
 
 exec --no-startup-id "sleep 10 ; $terminal weechat"
 
-#exec "sleep 10 ; keybase-gui"
+#for_window [title="ncmpcpp"] move container to workspace 10
+#exec --no-startup-id $terminal ncmpcpp
 
-for_window [title="ncmpcpp"] move container to workspace 10
-exec --no-startup-id $terminal ncmpcpp
+for_window [class="MellowPlayer"] move container to workspace 10
+exec --no-startup-id MellowPlayer
 
-#exec keynav
 #exec ~/.i3/monitor.sh
-
 exec --no-startup-id ~/.i3/mail.sh
-exec --no-startup-id ~/.i3/mail.local.sh
-
+#exec --no-startup-id ~/.i3/mail.local.sh
 exec --no-startup-id udiskie -t -A -N
 exec --no-startup-id usbguard-applet-qt
 exec --no-startup-id blueman-applet
-
-# exec --no-startup-id qtox
-exec --no-startup-id wicd-gtk -t
-
-# exec --no-startup-id pidgin
-# exec --no-startup-id gajim
+exec --no-startup-id nm-applet
 
 # Do not use any border on windows
-
 new_window none
 
 # Window border theming

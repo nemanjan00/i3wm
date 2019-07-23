@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-~/.i3/wallpaper.sh
+#~/.i3/wallpaper.sh
 torify offlineimap
 torify bugwarrior-pull
 torify task sync
