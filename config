@@ -2,7 +2,8 @@
 set $mod Mod4
 
 # Configuration
-set $terminal termite -e
+#set $terminal termite -e
+set $terminal kitty -e
 
 # Hack font
 font pango:Hack Nerd Font 11
@@ -29,7 +30,7 @@ bindsym $mod+shift+m exec networkmanager_dmenu
 bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
 bindsym $mod+Shift+t exec rofi -show calc -modi calc -no-show-match -no-sort
 bindsym $mod+Shift+u exec bash ~/.i3/rofi-books.sh
-bindsym $mod+Shift+o exec --no-startup-id rofi -modi combi -combi-modi window -show combi
+bindsym $mod+Shift+o exec --no-startup-id rofi -matching fuzzy -modi combi -combi-modi window -show combi
 bindsym $mod+o exec --no-startup-id ~/.i3/browser.sh
 bindsym $mod+s exec $terminal "torify profanity"
 bindsym $mod+p exec "bash ~/.i3/passmenu.sh" 
@@ -237,7 +238,7 @@ bar {
 #exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
 exec --no-startup-id /usr/bin/synclient TouchpadOff=1
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id compton -b --no-fading-openclose
+#exec --no-startup-id compton -b --no-fading-openclose
 exec --no-startup-id parcellite -n
 exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id volnoti
