@@ -6,7 +6,7 @@ function display() {
 	books=$(find $LIBRARY | grep '\.epub\|\.pdf')
 	books=${books//$LIBRARY/"~"}
 
-	line=$(echo "$books" | rofi -matcher fuzzy -dmenu -i -p "book> ")
+	line=$(echo "$books" | rofi -theme themes/appsmenu.rasi -matcher fuzzy -dmenu -i -p "book> ")
 
 	exit_code=$?
 
