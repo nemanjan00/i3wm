@@ -11,6 +11,7 @@ font pango:Hack Nerd Font 10
 # start a terminal
 bindsym $mod+Return exec $terminal zsh
 bindsym $mod+Shift+Return exec $terminal bash
+bindsym $mod+semicolon exec urxvt
 
 # Terminal apps
 bindsym $mod+m exec $terminal neomutt
@@ -89,7 +90,7 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 # bindsym $mod+a focus parent
 
-bindsym Print exec grim
+bindsym Print exec grim -g "$(slurp)"
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -152,7 +153,7 @@ set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
-gaps inner 20
+#gaps inner 20
 
 mode "$mode_gaps" {
 	bindsym o		 mode "$mode_gaps_outer"
@@ -183,9 +184,39 @@ mode "$mode_gaps_outer" {
 	bindsym Shift+minus gaps outer all minus 5
 	bindsym Shift+0		gaps outer all set 0
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym return mode "default"
+	bindsym escape mode "default"
 }
+
+# Vim mode
+
+mode "vim" {
+	bindsym h focus left
+	bindsym j focus down
+	bindsym k focus up
+	bindsym l focus right
+
+	bindsym d kill
+
+	bindsym 1 workspace 1
+	bindsym 2 workspace 2
+	bindsym 3 workspace 3
+	bindsym 4 workspace 4
+	bindsym 5 workspace 5
+	bindsym 6 workspace 6
+	bindsym 7 workspace 7
+	bindsym 8 workspace 8
+	bindsym 9 workspace 9
+	bindsym 0 workspace 10
+
+	bindsym r reload
+
+	bindsym return mode "default"
+	bindsym escape mode "default"
+}
+
+bindsym $mod+escape mode "vim"
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -223,9 +254,9 @@ bar {
 
 	position top
 
-	mode hide
-	hidden_state hide
-	modifier $mod
+	#mode hide
+	#hidden_state hide
+	#modifier $mod
 
 	colors {
 		background #282a36
@@ -255,7 +286,7 @@ exec --no-startup-id urxvtd
 #exec --no-startup-id /usr/bin/aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log
 
 #exec --no-startup-id nitrogen --restore
-exec --no-startup-id swaybg -i Pictures/Wallpapers/zpf5.jpg
+exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/15p.jpg
 
 #exec --no-startup-id parcellite -n
 exec --no-startup-id wl-paste -t text --watch clipman store
