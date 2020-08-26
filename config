@@ -24,8 +24,8 @@ bindsym $mod+Shift+c exec $terminal "rtv"
 bindsym $mod+s exec $terminal "torify profanity"
 
 # Apps
-bindsym $mod+b exec firejail qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4
-bindsym $mod+Shift+b exec firejail --whitelist=~/work qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 --basedir=work
+bindsym $mod+b exec qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4
+bindsym $mod+Shift+b exec qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 --basedir=work
 
 # Menu apps
 bindsym $mod+Shift+t exec rofi -show calc -modi calc -no-show-match -no-sort -theme themes/appsmenu.rasi
@@ -250,7 +250,8 @@ exec_always import-gsettings gtk-theme:gtk-theme-name icon-theme:gtk-icon-theme-
 
 # Bar settings
 bar {
-	status_command i3status -c ~/.i3/.i3status.conf | /home/nemanjan00/.config/yarn/global/node_modules/.bin/i3status-taskwarrior
+	#status_command i3status -c ~/.i3/.i3status.conf | /home/nemanjan00/.config/yarn/global/node_modules/.bin/i3status-taskwarrior
+	status_command i3status -c ~/.i3/.i3status.conf
 
 	position top
 
@@ -273,7 +274,7 @@ bar {
 #exec --no-startup-id xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55
 
 #exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
-exec --no-startup-id /usr/bin/mako --background-color #282a36
+exec --no-startup-id /usr/bin/mako --background-color #282a36 --border-color #50fa7b
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id /usr/bin/synclient TouchpadOff=1
@@ -286,7 +287,9 @@ exec --no-startup-id urxvtd
 #exec --no-startup-id /usr/bin/aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log
 
 #exec --no-startup-id nitrogen --restore
-exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/15p.jpg
+#exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/14p-blur.jpg
+exec --no-startup-id oguri
+exec --no-startup-id blueman-applet
 
 #exec --no-startup-id parcellite -n
 exec --no-startup-id wl-paste -t text --watch clipman store
@@ -298,10 +301,10 @@ for_window [title="WeeChat 2.7"] move container to workspace 9
 exec --no-startup-id "$terminal weechat"
 
 #exec ~/.i3/monitor.sh
-exec --no-startup-id ~/.i3/audio.sh
-exec --no-startup-id mpDris2
 exec --no-startup-id ~/.i3/mail.sh
 exec --no-startup-id ~/.i3/mail.local.sh
+
+#exec --no-startup-id python ~/.i3/inactive-windows-transparency.py
 
 # Do not use any border on windows
 default_border none

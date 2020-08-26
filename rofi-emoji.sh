@@ -80,6 +80,7 @@ function display() {
 
     if [ $exit_code == 0 ]; then
         xdotool type --clearmodifiers "${line[0]}"
+        wl-copy "${line[0]}"
     elif [ $exit_code == 10 ]; then
         echo -n "${line[0]}" | xsel -i -b
     fi

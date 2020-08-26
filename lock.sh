@@ -7,7 +7,7 @@ T='#ee00eeee'  # text
 W='#880000bb'  # wrong
 V='#bb00bbbb'  # verifying
 
-swaylock
+swaylock -c 000000
 
 /usr/bin/i3lock \
 --insidevercolor=$C   \
