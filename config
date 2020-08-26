@@ -32,15 +32,15 @@ bindsym $mod+Shift+t exec rofi -show calc -modi calc -no-show-match -no-sort -th
 
 bindsym $mod+shift+m exec networkmanager_dmenu
 
-bindsym $mod+Shift+n exec bash ~/.i3/rofi-emoji.sh
+bindsym $mod+Shift+n exec bash ~/.config/i3/rofi-emoji.sh
 
-bindsym $mod+Shift+u exec bash ~/.i3/rofi-books.sh
+bindsym $mod+Shift+u exec bash ~/.config/i3/rofi-books.sh
 bindsym $mod+Shift+o exec --no-startup-id rofi -matching fuzzy -modi combi -combi-modi window -show combi -theme themes/appsmenu.rasi
 
-bindsym $mod+p exec "bash ~/.i3/passmenu.sh"
-bindsym $mod+Shift+p exec "bash ~/.i3/passmenu.sh --otp"
+bindsym $mod+p exec "bash ~/.config/i3/passmenu.sh"
+bindsym $mod+Shift+p exec "bash ~/.config/i3/passmenu.sh --otp"
 
-bindsym $mod+d exec "bash ~/.i3/dmenu_recent_aliases"
+bindsym $mod+d exec "bash ~/config/.i3/dmenu_recent_aliases"
 bindsym Control+Mod1+h exec clipman pick -t "rofi" -T"-theme themes/appsmenu.rasi"
 
 #bindsym $mod+u exec ~/.config/rofi/bins/mpdmenu
@@ -52,7 +52,7 @@ bindsym $mod+Shift+d exec i3-dmenu-desktop
 bindsym $mod+t kill
 
 # Lock and shutdown
-bindsym $mod+x exec ~/.i3/lock.sh
+bindsym $mod+x exec ~/.config/i3/lock.sh
 bindsym $mod+Shift+y exec shutdown now
 
 # change focus
@@ -126,9 +126,9 @@ bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.i3/volume-control up #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/.i3/volume-control down #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id ~/.i3/volume-control mute # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume-control up #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/volume-control down #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/volume-control mute # mute sound
 
 # Sreen brightness controls
 #bindsym XF86MonBrightnessUp exec "xbacklight -inc 5 ; volnoti-show -s /usr/share/pixmaps/volnoti/display-brightness-symbolic.svg $(xbacklight)"
