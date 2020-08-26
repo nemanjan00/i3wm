@@ -40,7 +40,7 @@ bindsym $mod+Shift+o exec --no-startup-id rofi -matching fuzzy -modi combi -comb
 bindsym $mod+p exec "bash ~/.config/i3/passmenu.sh"
 bindsym $mod+Shift+p exec "bash ~/.config/i3/passmenu.sh --otp"
 
-bindsym $mod+d exec "bash ~/config/.i3/dmenu_recent_aliases"
+bindsym $mod+d exec "bash ~/.config/i3/dmenu_recent_aliases"
 bindsym Control+Mod1+h exec clipman pick -t "rofi" -T"-theme themes/appsmenu.rasi"
 
 #bindsym $mod+u exec ~/.config/rofi/bins/mpdmenu
