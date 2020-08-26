@@ -251,7 +251,7 @@ exec_always import-gsettings gtk-theme:gtk-theme-name icon-theme:gtk-icon-theme-
 # Bar settings
 bar {
 	#status_command i3status -c ~/.i3/.i3status.conf | /home/nemanjan00/.config/yarn/global/node_modules/.bin/i3status-taskwarrior
-	status_command i3status -c ~/.i3/.i3status.conf
+	status_command i3status -c ~/.config/i3/.i3status.conf
 
 	position top
 
