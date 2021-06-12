@@ -1,12 +1,16 @@
 # Windows key
 set $mod Mod4
 
+#xwayland disable
+
 # Configuration
-set $terminal termite -e
+#set $terminal alacritty -e
+set $terminal kitty -e
+#set $terminal termite -e
 #set $terminal urxvt -e
 
 # Hack font
-font pango:Hack Nerd Font 10
+font pango:Hack Nerd Font 8
 
 # start a terminal
 bindsym $mod+Return exec $terminal zsh
@@ -24,8 +28,8 @@ bindsym $mod+Shift+c exec $terminal "rtv"
 bindsym $mod+s exec $terminal "torify profanity"
 
 # Apps
-bindsym $mod+b exec qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4
-bindsym $mod+Shift+b exec qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 --basedir=work
+bindsym $mod+b exec firejail --apparmor qutebrowser -s qt.highdpi true --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=8 --qt-flag enable-accelerated-video-decode --qt-flag use-gl=egl --qt-flag enable-oop-rasterization --qt-flag enable-zero-copy --qt-flag enable-vulkan
+bindsym $mod+Shift+b exec firejail --whitelist=$HOME/work --apparmor qutebrowser -s qt.highdpi true --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=8 --qt-flag enable-accelerated-video-decode --qt-flag use-gl=egl --qt-flag enable-oop-rasterization --qt-flag enable-zero-copy --qt-flag enable-vulkan --basedir=work
 
 # Menu apps
 bindsym $mod+Shift+t exec rofi -show calc -modi calc -no-show-match -no-sort -theme themes/appsmenu.rasi
@@ -71,7 +75,12 @@ bindsym $mod+Shift+l move right
 #bindsym $mod+Shift+h split h
 
 # split in vertical orientation
-bindsym $mod+Shift+v split v
+# bindsym $mod+Shift+v split v
+
+# tablet
+
+bindsym $mod+v exec swaymsg output eDP-1 transform 0
+bindsym $mod+Shift+v exec swaymsg output eDP-1 transform 90
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -153,7 +162,8 @@ set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
-#gaps inner 20
+gaps inner 20
+gaps inner 0
 
 mode "$mode_gaps" {
 	bindsym o		 mode "$mode_gaps_outer"
@@ -277,9 +287,9 @@ bar {
 exec --no-startup-id /usr/bin/mako --background-color #282a36 --border-color #50fa7b
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id /usr/bin/synclient TouchpadOff=1
+#exec --no-startup-id /usr/bin/synclient TouchpadOff=1
 
-exec --no-startup-id urxvtd
+#exec --no-startup-id urxvtd
 
 #exec --no-startup-id picom -b --no-fading-openclose
 
@@ -287,22 +297,28 @@ exec --no-startup-id urxvtd
 #exec --no-startup-id /usr/bin/aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log
 
 #exec --no-startup-id nitrogen --restore
-#exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/14p-blur.jpg
-exec --no-startup-id oguri
+exec --no-startup-id  swaybg -i ~/work/download/Photo_6553700_DJI_100_jpg_6074466_0_2021411193534_photo_original.jpg
+#exec --no-startup-id  swaybg -i ~/work/download/GOkP8onbuyjGmN9Rc8Que5mw21CdSw6OuXpAKUuE6-4.jpg
+#exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/15p-blur.jpg
+#exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/303626.jpg
+#exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/retro-lux-cars-retrowave-4k-gr-1920x1080.jpg
+#exec --no-startup-id oguri
 exec --no-startup-id blueman-applet
+
+exec --no-startup-id /usr/bin/gammastep -l 44.7866:20.4489
 
 #exec --no-startup-id parcellite -n
 exec --no-startup-id wl-paste -t text --watch clipman store
-exec --no-startup-id volnoti
+#exec --no-startup-id volnoti
 #exec --no-startup-id keynav
 
-for_window [title="WeeChat 2.7"] move container to workspace 9
+#for_window [title="WeeChat 2.7"] move container to workspace 9
 
 exec --no-startup-id "$terminal weechat"
 
 #exec ~/.i3/monitor.sh
-exec --no-startup-id ~/.i3/mail.sh
-exec --no-startup-id ~/.i3/mail.local.sh
+#exec --no-startup-id ~/.i3/mail.sh
+#exec --no-startup-id ~/.i3/mail.local.sh
 
 #exec --no-startup-id python ~/.i3/inactive-windows-transparency.py
 
@@ -324,13 +340,21 @@ input 1:1:AT_Translated_Set_2_keyboard {
 	xkb_options caps:swapescape
 }
 
-input 2385:5842:Kingston_HyperX_Alloy_FPS_Pro_Mechanical_Gaming_Keyboard {
+input 1452:591:Keychron_Keychron_K2 {
 	xkb_options caps:swapescape
+}
+
+input 1386:18720:Wacom_HID_4920_Finger {
+	map_to_output eDP-1
 }
 
 # Disable touchpad
 input 2:7:SynPS/2_Synaptics_TouchPad {
 	events disabled
+}
+
+output DP-2 {
+	scale 1.2
 }
 
 # vim:filetype=swayconfig

@@ -19,7 +19,7 @@ mute)
 	;;
 esac
 
-volume=$(pactl list sinks | perl -000ne 'if(/#'${sink}'/){/(Volume:.*)/; print "$1\n"}')
+volume=$(pactl list sinks | perl -000ne 'if(/#'${sink}'/){/(Volume:.*)/; print "$1\n"}' | tail -n1)
 volume_percent=$(sed 's/.*[[:space:]]\([[:digit:]]*%\)[[:space:]].*/\1/' <<< "$volume")
 muted=$(pactl list sinks | perl -000ne 'if(/#'${sink}'/){/(Mute:.*)/; print "$1\n"}')
 
