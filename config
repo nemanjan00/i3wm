@@ -10,7 +10,7 @@ set $terminal kitty -e
 #set $terminal urxvt -e
 
 # Hack font
-font pango:Hack Nerd Font 8
+font pango:FiraCode Nerd Font 10
 
 # start a terminal
 bindsym $mod+Return exec $terminal zsh
@@ -163,7 +163,7 @@ set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 
 gaps inner 20
-gaps inner 0
+#gaps inner 0
 
 mode "$mode_gaps" {
 	bindsym o		 mode "$mode_gaps_outer"
@@ -326,6 +326,12 @@ exec --no-startup-id "$terminal weechat"
 default_border none
 
 #border_radius 10
+
+titlebar_padding 1
+titlebar_border_thickness 1
+
+for_window [app_id="firefoxdeveloperedition"] title_format " <span foreground='#FF6611'><tt></tt></span> %title"
+for_window [app_id="kitty"] title_format " <span foreground='#FF6611'><tt></tt></span> %title"
 
 # Window border theming
 # <border> <background> <text> <indicator> <child_border>
