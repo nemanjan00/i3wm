@@ -10,7 +10,7 @@ set $terminal kitty -e
 #set $terminal urxvt -e
 
 # Hack font
-font pango:FiraCode Nerd Font 10
+font pango:FiraCode Nerd Font 12
 
 # start a terminal
 bindsym $mod+Return exec $terminal zsh
@@ -260,6 +260,7 @@ exec_always import-gsettings gtk-theme:gtk-theme-name icon-theme:gtk-icon-theme-
 
 # Bar settings
 bar {
+	swaybar_command waybar
 	#status_command i3status -c ~/.i3/.i3status.conf | /home/nemanjan00/.config/yarn/global/node_modules/.bin/i3status-taskwarrior
 	status_command i3status -c ~/.config/i3/.i3status.conf
 
@@ -331,7 +332,7 @@ titlebar_padding 1
 titlebar_border_thickness 1
 
 for_window [app_id="firefoxdeveloperedition"] title_format " <span foreground='#FF6611'><tt></tt></span> %title"
-for_window [app_id="kitty"] title_format " <span foreground='#FF6611'><tt></tt></span> %title"
+for_window [app_id="kitty"] title_format " <span foreground='#ff79c6'><tt></tt></span> %title"
 
 # Window border theming
 # <border> <background> <text> <indicator> <child_border>
