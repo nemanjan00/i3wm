@@ -75,12 +75,12 @@ bindsym $mod+Shift+l move right
 #bindsym $mod+Shift+h split h
 
 # split in vertical orientation
-# bindsym $mod+Shift+v split v
+ bindsym $mod+Shift+v split v
 
 # tablet
 
-bindsym $mod+v exec swaymsg output eDP-1 transform 0
-bindsym $mod+Shift+v exec swaymsg output eDP-1 transform 90
+#bindsym $mod+v exec swaymsg output eDP-1 transform 0
+#bindsym $mod+Shift+v exec swaymsg output eDP-1 transform 90
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -285,7 +285,7 @@ bar {
 #exec --no-startup-id xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55
 
 #exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
-exec --no-startup-id /usr/bin/mako --background-color #282a36 --border-color #50fa7b
+exec --no-startup-id /usr/bin/mako --background-color=#282a36 --border-color=#50fa7b --output=DP-1
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id /usr/bin/synclient TouchpadOff=1
@@ -351,6 +351,10 @@ input 1452:591:Keychron_Keychron_K2 {
 	xkb_options caps:swapescape
 }
 
+input 1452:591:Keychron_K2_Keyboard {
+	xkb_options caps:swapescape
+}
+
 input 1386:18720:Wacom_HID_4920_Finger {
 	map_to_output eDP-1
 }
@@ -358,6 +362,10 @@ input 1386:18720:Wacom_HID_4920_Finger {
 # Disable touchpad
 input 2:7:SynPS/2_Synaptics_TouchPad {
 	events disabled
+}
+
+output DP-1 {
+	scale 1.2
 }
 
 output DP-2 {
