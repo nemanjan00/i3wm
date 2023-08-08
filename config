@@ -25,7 +25,6 @@ bindsym $mod+g exec $terminal "ncpamixer"
 bindsym $mod+o exec zsh -c 'EDITOR=nvim $terminal "/usr/bin/ranger"'
 bindsym $mod+c exec $terminal "ikhal"
 bindsym $mod+Shift+c exec $terminal "rtv"
-bindsym $mod+s exec $terminal "torify profanity"
 
 # Apps
 bindsym $mod+b exec firejail --apparmor qutebrowser -s qt.highdpi true --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=8 --qt-flag enable-accelerated-video-decode --qt-flag use-gl=egl --qt-flag enable-oop-rasterization --qt-flag enable-zero-copy --qt-flag enable-vulkan
@@ -99,6 +98,7 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 # bindsym $mod+a focus parent
 
+bindsym $mod+s exec grim -g "$(slurp)"
 bindsym Print exec grim -g "$(slurp)"
 
 # focus the child container
@@ -132,7 +132,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+r reload
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume-control up #increase sound volume
@@ -255,6 +255,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
+
 # GTK Themes for sway
 exec_always import-gsettings gtk-theme:gtk-theme-name icon-theme:gtk-icon-theme-name cursor-theme:gtk-cursor-theme-name
 
@@ -298,13 +300,15 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id /usr/bin/aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log
 
 #exec --no-startup-id nitrogen --restore
-exec --no-startup-id  swaybg -i ~/work/download/Photo_6553700_DJI_100_jpg_6074466_0_2021411193534_photo_original.jpg
+#exec --no-startup-id  swaybg -i ~/work/download/Photo_6553700_DJI_100_jpg_6074466_0_2021411193534_photo_original.jpg
+exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/gusenica.jpg
+#exec --no-startup-id swaybg -i ~/Pictures/ukrasi.jpg
 #exec --no-startup-id  swaybg -i ~/work/download/GOkP8onbuyjGmN9Rc8Que5mw21CdSw6OuXpAKUuE6-4.jpg
 #exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/15p-blur.jpg
 #exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/303626.jpg
 #exec --no-startup-id swaybg -i ~/Pictures/Wallpapers/retro-lux-cars-retrowave-4k-gr-1920x1080.jpg
 #exec --no-startup-id oguri
-exec --no-startup-id blueman-applet
+exec --no-startup-id blueberry-tray
 
 exec --no-startup-id /usr/bin/gammastep -l 44.7866:20.4489
 
@@ -315,7 +319,9 @@ exec --no-startup-id wl-paste -t text --watch clipman store
 
 #for_window [title="WeeChat 2.7"] move container to workspace 9
 
-exec --no-startup-id "$terminal weechat"
+#exec --no-startup-id "$terminal weechat"
+
+exec --no-startup-id solaar -w hide
 
 #exec ~/.i3/monitor.sh
 #exec --no-startup-id ~/.i3/mail.sh
@@ -347,6 +353,14 @@ input 1:1:AT_Translated_Set_2_keyboard {
 	xkb_options caps:swapescape
 }
 
+input 1452:591:SONiX_USB_DEVICE {
+	xkb_options caps:swapescape
+}
+
+input 1452:591:Keychron_K2 {
+	xkb_options caps:swapescape
+}
+
 input 1452:591:Keychron_Keychron_K2 {
 	xkb_options caps:swapescape
 }
@@ -366,6 +380,7 @@ input 2:7:SynPS/2_Synaptics_TouchPad {
 
 output DP-1 {
 	scale 1.2
+	position 0 0
 }
 
 output DP-2 {
